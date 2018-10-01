@@ -1,0 +1,11 @@
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\bin\Debug\netcoreapp2.1\MovieApp.deps.json
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\bin\Debug\netcoreapp2.1\MovieApp.runtimeconfig.json
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\bin\Debug\netcoreapp2.1\MovieApp.runtimeconfig.dev.json
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\bin\Debug\netcoreapp2.1\MovieApp.dll
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\bin\Debug\netcoreapp2.1\MovieApp.pdb
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\obj\Debug\netcoreapp2.1\MovieApp.csprojAssemblyReference.cache
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\obj\Debug\netcoreapp2.1\MovieApp.csproj.CoreCompileInputs.cache
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\obj\Debug\netcoreapp2.1\MovieApp.AssemblyInfoInputs.cache
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\obj\Debug\netcoreapp2.1\MovieApp.AssemblyInfo.cs
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\obj\Debug\netcoreapp2.1\MovieApp.dll
+C:\Users\tanld\Documents\course\dacs.netcore\1-EntityFramework\MovieApp\obj\Debug\netcoreapp2.1\MovieApp.pdb
