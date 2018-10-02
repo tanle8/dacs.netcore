@@ -140,7 +140,11 @@ In relational databases entities are related with different types of relationshi
 
 ## Create the Database Context
 
-The main class that coordinates Entity Framework functionality for a given data model is the database context class. You create this class by deriving from the `Microsoft.EntityFrameworkCore.DbContext` class. This derived context represents a session with the database, allowing you to _query_ and _save_ data. In your code you specify which `entity classes` are included in the data model by exposing a typed `DbSet<TEntity>` for each class in your model. You can also customize certain Entity Framework behavior. For the same class enrollment example we have been looking at in the previous lesson, we will create a DBContext class named SchoolContext.
+The main class that coordinates Entity Framework functionality for a given data model is the database context class. You create this class by deriving from the `Microsoft.EntityFrameworkCore.DbContext` class.
+
+This derived context represents a session with the database, allowing you to _query_ and _save_ data. In your code you specify which `entity classes` are included in the data model by exposing a typed `DbSet<TEntity>` for each class in your model.
+
+You can also customize certain Entity Framework behavior. For the same class enrollment example we have been looking at in the previous lesson, we will create a DBContext class named SchoolContext.
 
 For our school example from last lesson here is how the SchoolContext class should look like:
 
@@ -159,20 +163,24 @@ public class SchoolContext : DbContext
 }
 ```
 
-This code creates a `DbSet` property for each entity set. In Entity Framework terminology, an entity set typically corresponds to a database table, and an entity corresponds to a row in the table.
+This code creates a `DbSet` property for each `entity set`. In Entity Framework terminology, an `entity set` typically corresponds to a `database table`, and an `entity` corresponds to a _row_ in the table.
 
-Note: You could have omitted the DbSet<Enrollment> and DbSet<Course> statements and it would work the same. The Entity Framework would include them implicitly because the Student entity references the Enrollment entity and the Enrollment entity references the Course entity. This has been explained in the previous lesson when we created the entity classes.
+Note: You could have omitted the `DbSet<Enrollment>` and `DbSet<Course>` statements and it would work the same. The Entity Framework would include them implicitly because the `Student` entity references the `Enrollment` entity and the `Enrollment` entity references the `Course` entity. This has been explained in the previous lesson when we created the entity classes.
 
-When the database is created, EF creates tables that have names the same as the DbSet property names. Property names for collections are typically plural (Students rather than Student), but developers disagree about whether table names should be pluralized or not. EF Core gives you the option to override the default behavior by specifying different table names than the corresponding DbSet names in the DbContext. To do that, you will override the OnModelCreating method of the DbContext parent class. Add the following highlighted code after the last DbSet property.
+When the database is created, EF creates _tables_ that have names the same as the DbSet `property names`. Property names for collections are typically plural (Students rather than Student), but developers disagree about whether table names should be pluralized or not. EF Core gives you the option to override the default behavior by specifying different table names than the corresponding `DbSet` names in the `DbContext`. To do that, you will override the `OnModelCreating` method of the `DbContext` parent class. Add the following highlighted code after the last DbSet property.
 
+```c#
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Course>().ToTable("Course");
     modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
     modelBuilder.Entity<Student>().ToTable("Student");
 }
-Your final code for the SchoolContext class will look like this:
+```
 
+Your final code for the `SchoolContext` class will look like this:
+
+```c#
 using Microsoft.EntityFrameworkCore;
 
 public class SchoolContext : DbContext
@@ -192,28 +200,41 @@ public class SchoolContext : DbContext
         modelBuilder.Entity<Student>().ToTable("Student");
     }
 }
-As you have seen, Entity Framework uses a set of conventions to build a model based on the shape of your entity classes. You can specify additional configuration to supplement and/or override what was discovered by convention. There are two main methods for configuring a model.
+```
 
-Methods of model configuration
-Fluent API
-You can override the OnModelCreating method in your derived context and use the ModelBuilder API to configure your model. This is the most powerful method of configuration and allows configuration to be specified without modifying your entity classes. Fluent API configuration has the highest precedence and will override conventions and data annotations.
-class MyContext : DbContext
-    {
-        public DbSet<Blog> Blogs { get; set; }
+As you have seen, Entity Framework uses a set of conventions to __build a model__ based on the `shape` of your `entity classes`. You can specify additional configuration to supplement and/or override what was discovered by convention. There are two main methods for configuring a model.
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+### Methods of model configuration
+
+1. Fluent API
+
+    You can override the _OnModelCreating_ method in your derived context and use the ModelBuilder API to configure your model. This is the most powerful method of configuration and allows configuration to be specified without modifying your entity classes. Fluent API configuration has the highest precedence and will override conventions and data annotations.
+
+    ```c#
+    class MyContext : DbContext
         {
-            modelBuilder.Entity<Blog>()
-                .Property(b => b.Url)
-                .IsRequired();
+            public DbSet<Blog> Blogs { get; set; }
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                modelBuilder.Entity<Blog>()
+                    .Property(b => b.Url)
+                    .IsRequired();
+            }
         }
-    }
-Data Annotations
-You can also apply attributes (known as Data Annotations) to your classes and properties. Data annotations will override conventions, but will be overwritten by Fluent API configuration.
-public class Blog
-    {
-        public int BlogId { get; set; }
-        [Required]
-        public string Url { get; set; }
-    }
-That is all the code you need to start storing and retrieving data. There is quite a bit going on behind the scenes and we’ll take a look at that as we proceed in the course but first let’s see it in action by doing some basic data operations.
+    ```
+
+2. Data Annotations
+
+    You can also apply attributes (known as Data Annotations) to your classes and properties. Data annotations will override conventions, but will be overwritten by Fluent API configuration.
+
+    ```c#
+    public class Blog
+        {
+            public int BlogId { get; set; }
+            [Required]
+            public string Url { get; set; }
+        }
+    ```
+
+    That is all the code you need to start storing and retrieving data. There is quite a bit going on behind the scenes and we’ll take a look at that as we proceed in the course but first let’s see it in action by doing some basic data operations.
